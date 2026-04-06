@@ -1,16 +1,28 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import string
+import keyword
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def is_valid_variable_name(name: str) -> bool:
 
+    if not name:
+        return False
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+    if name[0].isdigit():
+        return False
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    allowed_chars = string.ascii_lowercase + "_"
+    for char in name:
+        if char not in allowed_chars:
+            return False
+
+    if name in keyword.kwlist:
+        return False
+
+    if "__" in name:
+        return False
+
+    return True
+
+user_input = input("Введіть ім'я змінної: ")
+result = is_valid_variable_name(user_input)
+print(result)
